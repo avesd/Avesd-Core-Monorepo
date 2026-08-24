@@ -1,0 +1,23 @@
+{
+  "name": "@avesd/workspace",
+  "private": true,
+  "packageManager": "pnpm@11.23.0",
+  "engines": {
+    "node": ">=24.17.0 <25"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "compile": "turbo compile",
+    "dev": "pnpm --filter @avesd/desktop dev",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "validate": "pnpm lint && pnpm compile && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "eslint": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
+

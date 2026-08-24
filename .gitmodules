@@ -1,0 +1,3 @@
+[submodule ".agents/skills/sudoland-common"]
+	path = .agents/skills/sudoland-common
+	url = https://github.com/SudoLand/SudoLand-Shared-Skills-Prompting.git

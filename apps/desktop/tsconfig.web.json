@@ -1,0 +1,8 @@
+{
+  "extends": "@avesd/configuration/typescript/react",
+  "compilerOptions": {
+    "composite": true
+  },
+  "include": ["src/renderer/**/*.ts", "src/renderer/**/*.tsx", "src/shared/**/*.ts"]
+}
+

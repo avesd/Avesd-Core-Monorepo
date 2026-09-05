@@ -12,6 +12,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@avesd/kernel": "workspace:*",
+    "@avesd/plugin-api": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
@@ -29,4 +31,3 @@
     "vitest": "catalog:"
   }
 }
-

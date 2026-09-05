@@ -33,6 +33,10 @@ textarea {
     linear-gradient(145deg, #f6f7f2 0%, #dfe9e2 100%);
 }
 
+.plugin-slot {
+  display: contents;
+}
+
 .hero {
   width: min(720px, 100%);
   padding: 64px;

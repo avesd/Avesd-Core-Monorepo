@@ -80,6 +80,12 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@avesd/kernel':
+        specifier: workspace:*
+        version: link:../../packages/kernel
+      '@avesd/plugin-api':
+        specifier: workspace:*
+        version: link:../../packages/plugin-api
       react:
         specifier: 'catalog:'
         version: 19.2.8

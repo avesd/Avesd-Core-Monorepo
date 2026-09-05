@@ -31,8 +31,8 @@ pnpm validate
 - `packages/kernel` — Cordis-backed plugin lifecycle adapter and contribution
   registries.
 - `packages/plugin-api` — stable contracts implemented by plugins.
-- `.agents/skills/sudoland-common` — shared repository-development skills,
-  included as a pinned Git submodule.
+- `.agents/common-skills-policy.md` and `.agents/audit-policy.md` — local
+  repository policy for globally installed shared skills.
 - `working` — non-authoritative audits, plans, notes, and archived project
   memory.
 

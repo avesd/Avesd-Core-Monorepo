@@ -36,13 +36,11 @@ add subtree-specific constraints.
   `pnpm test`, `pnpm build`, and `pnpm validate`.
 - `README.md` currently owns product orientation and repository onboarding.
 - `working/` contains non-authoritative audits, plans, and temporary notes.
-- Shared skills live in the nested repository at
-  `.agents/skills/sudoland-common`; repository-specific behavior belongs in
+- Shared skills are installed globally under
+  `~/.codex/skills/sudoland-common`; repository-specific behavior belongs in
   `.agents/common-skills-policy.md` and `.agents/audit-policy.md`.
 
 ## Git handling
 
 Do not inspect or mutate Git state unless the user explicitly asks for Git work
-in that turn. Preserve unrelated user changes. Treat
-`.agents/skills/sudoland-common` as an independent repository and commit its
-content before any superproject commit that updates its gitlink.
+in that turn. Preserve unrelated user changes.

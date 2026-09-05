@@ -29,9 +29,9 @@
 ## Git repositories and commits
 
 - Root repository: `superproject` at `.`.
-- Included nested repositories: `sudoland-common` at `.agents/skills/sudoland-common`.
+- Included nested repositories: None.
 - Excluded repositories and paths: Dependency, build, cache, coverage, and generated-output directories are excluded from inspection and staging unless the user explicitly places a generated artifact in scope.
-- Nested-repository commit order: Commit changes owned by `sudoland-common` before a superproject commit that records its gitlink. Do not combine content owned by the child repository and superproject in one commit.
+- Nested-repository commit order: Not applicable.
 - Status and history inspection: Inspect Git state or history only when the user explicitly authorizes Git work for the turn; common commit-planning skills may inspect the minimum included-repository context required by their direct invocation.
 - Commit plan modes: `Compact`, `Balanced`, and `Detailed`; recommend `Balanced` by default.
 - Commit identity: Read the configured Git identity without changing it and stop before committing if required identity is missing.

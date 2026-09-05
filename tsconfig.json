@@ -4,6 +4,7 @@
     { "path": "./packages/configuration" },
     { "path": "./packages/plugin-api" },
     { "path": "./packages/kernel" },
+    { "path": "./packages/acp-client" },
     { "path": "./apps/desktop" }
   ]
 }

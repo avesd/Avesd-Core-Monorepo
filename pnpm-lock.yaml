@@ -21,6 +21,9 @@ catalogs:
     '@vitejs/plugin-react':
       specifier: 5.2.0
       version: 5.2.0
+    cordis:
+      specifier: 4.0.0-rc.9
+      version: 4.0.0-rc.9
     electron:
       specifier: 43.4.1
       version: 43.4.1
@@ -139,6 +142,40 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.10.13
+      eslint:
+        specifier: 'catalog:'
+        version: 10.0.1
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
+  packages/kernel:
+    dependencies:
+      '@avesd/plugin-api':
+        specifier: workspace:*
+        version: link:../plugin-api
+      cordis:
+        specifier: 'catalog:'
+        version: 4.0.0-rc.9
+    devDependencies:
+      '@avesd/configuration':
+        specifier: workspace:*
+        version: link:../configuration
+      eslint:
+        specifier: 'catalog:'
+        version: 10.0.1
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.10.13)(vite@8.2.2(@types/node@24.10.13)(esbuild@0.28.2))
+
+  packages/plugin-api:
+    devDependencies:
+      '@avesd/configuration':
+        specifier: workspace:*
+        version: link:../configuration
       eslint:
         specifier: 'catalog:'
         version: 10.0.1
@@ -1095,6 +1132,21 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  cordis@4.0.0-rc.9:
+    resolution: {integrity: sha512-Y18SoewBvJ0eTZK7lHSQ5xl5YT1OWwoqFI92UrtpSAZyjUcW7cIEAOgOBVFp7PtO605vx6gBWdiOVaxY6UmSGw==}
+    hasBin: true
+    peerDependencies:
+      '@cordisjs/plugin-include': ^1.0.5
+      '@cordisjs/plugin-loader': ^1.0.0-rc.6
+    peerDependenciesMeta:
+      '@cordisjs/plugin-include':
+        optional: true
+      '@cordisjs/plugin-loader':
+        optional: true
+
+  cosmokit@1.8.1:
+    resolution: {integrity: sha512-PDBv4l90xZKrUsZ0vtoycgZpO/j4iFsqJXrAxsyBDsnQRI7ZMJXIjgDJsKNjd5L8jnVnnlrDCdhkFbTncgCVjQ==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2497,6 +2549,13 @@ snapshots:
   chai@6.2.2: {}
 
   convert-source-map@2.0.0: {}
+
+  cordis@4.0.0-rc.9:
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      cosmokit: 1.8.1
+
+  cosmokit@1.8.1: {}
 
   cross-spawn@7.0.6:
     dependencies:

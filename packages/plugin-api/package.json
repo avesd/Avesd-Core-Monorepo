@@ -1,0 +1,17 @@
+{
+  "name": "@avesd/plugin-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@avesd/configuration": "workspace:*",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

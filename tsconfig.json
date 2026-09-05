@@ -2,6 +2,8 @@
   "files": [],
   "references": [
     { "path": "./packages/configuration" },
+    { "path": "./packages/plugin-api" },
+    { "path": "./packages/kernel" },
     { "path": "./apps/desktop" }
   ]
 }

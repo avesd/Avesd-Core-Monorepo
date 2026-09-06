@@ -1,6 +1,6 @@
-import type { ContributionRegistry } from "@avesd/kernel";
 import type { PluginDefinition } from "@avesd/plugin-api";
 
+import { mainViewContribution } from "../workbench/types";
 import type { WorkbenchView } from "../workbench/types";
 
 const welcomeView: WorkbenchView = {
@@ -30,13 +30,14 @@ const welcomeView: WorkbenchView = {
   },
 };
 
-export const createWelcomePlugin = (
-  views: ContributionRegistry<WorkbenchView>,
-): PluginDefinition => ({
+export const welcomePlugin: PluginDefinition = {
   activate(context) {
-    context.effect(() => views.contribute("workbench.main", welcomeView));
+    context.effect(() => context.contributions.contribute(
+      mainViewContribution,
+      welcomeView,
+    ));
   },
   apiVersion: 1,
   id: "avesd.builtin.welcome",
   version: "0.1.0",
-});
+};

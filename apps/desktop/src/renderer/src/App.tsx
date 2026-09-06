@@ -1,12 +1,13 @@
 import { useEffect, useRef, useSyncExternalStore } from "react";
 
-import { mainViewKey, mainViewRegistry } from "./workbench/runtime";
+import { mainViewRegistry } from "./workbench/runtime";
+import { mainViewContribution } from "./workbench/types";
 
 export const App = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const view = useSyncExternalStore(
     (listener) => mainViewRegistry.subscribe(listener),
-    () => mainViewRegistry.get(mainViewKey),
+    () => mainViewRegistry.get(mainViewContribution.id),
   );
 
   useEffect(() => {

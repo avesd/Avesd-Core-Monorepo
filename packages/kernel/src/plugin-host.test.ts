@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
+import { CapabilityBroker } from "./capability-broker";
+import { ContributionBroker } from "./contribution-broker";
 import { ContributionRegistry } from "./contribution-registry";
 import { PluginHost } from "./plugin-host";
 
@@ -67,6 +69,69 @@ describe("PluginHost", () => {
 
     expect(registry.get("main")).toBe("stable");
     expect(host.activePluginIds).toEqual(["example"]);
+  });
+
+  it("injects only requested and authorized plugin-scoped capabilities", async () => {
+    const capabilities = new CapabilityBroker(
+      (pluginId, capability) => pluginId === "example" && capability === "commands",
+    );
+    capabilities.register("commands", ({ pluginId }) => ({
+      async execute(commandId) {
+        return `${pluginId}:${commandId}`;
+      },
+    }));
+    const host = new PluginHost({ capabilities });
+
+    await host.replace({
+      async activate(context) {
+        expect(context.services.storage).toBeUndefined();
+        await expect(context.services.commands?.execute("open"))
+          .resolves.toBe("example:open");
+      },
+      apiVersion: 1,
+      capabilities: ["commands"],
+      id: "example",
+      version: "1.0.0",
+    });
+  });
+
+  it("rejects an unauthorized capability before plugin activation", async () => {
+    const activate = vi.fn();
+    const host = new PluginHost({
+      capabilities: new CapabilityBroker(() => false),
+    });
+
+    await expect(host.replace({
+      activate,
+      apiVersion: 1,
+      capabilities: ["externalOpen"],
+      id: "example",
+      version: "1.0.0",
+    })).rejects.toThrow(
+      "Plugin example is not authorized for capability: externalOpen",
+    );
+    expect(activate).not.toHaveBeenCalled();
+  });
+
+  it("routes typed contributions through registered contribution points", async () => {
+    const point = { id: "example.message" } as const;
+    const registry = new ContributionRegistry<string>();
+    const contributions = new ContributionBroker();
+    contributions.register(point, registry);
+    const host = new PluginHost({ contributions });
+
+    await host.replace({
+      activate(context) {
+        context.effect(() => context.contributions.contribute(point, "hello"));
+      },
+      apiVersion: 1,
+      id: "example",
+      version: "1.0.0",
+    });
+
+    expect(registry.get(point.id)).toBe("hello");
+    await host.remove("example");
+    expect(registry.get(point.id)).toBeUndefined();
   });
 
   it("notifies contribution subscribers when the active layer changes", () => {

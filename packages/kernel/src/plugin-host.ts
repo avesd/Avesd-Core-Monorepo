@@ -2,14 +2,27 @@ import type { PluginDefinition } from "@avesd/plugin-api";
 import type { PluginContext } from "@avesd/plugin-api";
 import { Context } from "cordis";
 
+import { CapabilityBroker } from "./capability-broker";
+import { ContributionBroker } from "./contribution-broker";
+
 interface MountedPlugin {
   readonly definition: PluginDefinition;
   readonly fiber: ReturnType<Context["plugin"]>;
 }
 
 export class PluginHost {
+  readonly #capabilities: CapabilityBroker;
+  readonly #contributions: ContributionBroker;
   readonly #context = new Context();
   readonly #plugins = new Map<string, MountedPlugin>();
+
+  constructor(options: {
+    readonly capabilities?: CapabilityBroker;
+    readonly contributions?: ContributionBroker;
+  } = {}) {
+    this.#capabilities = options.capabilities ?? new CapabilityBroker();
+    this.#contributions = options.contributions ?? new ContributionBroker();
+  }
 
   get activePluginIds(): readonly string[] {
     return [...this.#plugins.keys()];
@@ -22,6 +35,7 @@ export class PluginHost {
 
     const candidate = this.#context.plugin((context) => {
       const pluginContext: PluginContext = {
+        contributions: this.#contributions.createScope(),
         effect(setup) {
           context.effect(setup, `${definition.id}:effect`);
         },
@@ -29,6 +43,10 @@ export class PluginHost {
           context.effect(() => dispose, `${definition.id}:dispose`);
         },
         pluginId: definition.id,
+        services: this.#capabilities.createScope(
+          definition.id,
+          definition.capabilities ?? [],
+        ),
       };
 
       return definition.activate(pluginContext);

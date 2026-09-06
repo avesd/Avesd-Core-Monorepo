@@ -8,9 +8,15 @@
   "scripts": {
     "build": "turbo build",
     "compile": "turbo compile",
+    "depcheck": "pnpm outdated -r",
     "dev": "pnpm --filter @avesd/desktop dev",
-    "lint": "turbo lint",
+    "iud": "pnpm install && pnpm update -r && pnpm dedupe && pnpm run self-update",
+    "lint": "turbo lint && pnpm validate-repository-boundaries",
+    "self-update": "corepack use pnpm@latest",
     "test": "turbo test",
+    "ud": "pnpm update -r && pnpm dedupe",
+    "update-all": "pnpm update -r --latest --include-github-actions && pnpm dedupe",
+    "validate-repository-boundaries": "node --check scripts/validate-repository-boundaries.mjs && node scripts/validate-repository-boundaries.mjs",
     "validate": "pnpm lint && pnpm compile && pnpm test && pnpm build"
   },
   "devDependencies": {

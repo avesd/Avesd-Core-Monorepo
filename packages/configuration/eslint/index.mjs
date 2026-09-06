@@ -3,7 +3,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export const createAvesdConfig = () => tseslint.config(
+export const createAvesdConfig = (tsconfigRootDir = import.meta.dirname) => tseslint.config(
   {
     ignores: ["coverage/**", "dist/**", "node_modules/**", "out/**", "release/**"],
   },
@@ -11,6 +11,11 @@ export const createAvesdConfig = () => tseslint.config(
   ...tseslint.configs.recommended,
   {
     files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir,
+      },
+    },
     rules: {
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",

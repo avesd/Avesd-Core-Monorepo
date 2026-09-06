@@ -1,6 +1,7 @@
 # Avesd Core Monorepo
 
-Avesd is a local-first desktop workspace for managing a job search. The first
+Avesd is the kiosk that grows with you: a local-first, extensible desktop
+workspace that gains capabilities through replaceable plugins. The first
 product is an Electron application; optional account and cloud capabilities can
 be added later without becoming a dependency of the local workflow.
 
@@ -13,7 +14,6 @@ be added later without becoming a dependency of the local workflow.
 ## Common commands
 
 ```sh
-git submodule update --init --recursive
 pnpm install
 pnpm dev
 pnpm lint
@@ -22,6 +22,29 @@ pnpm test
 pnpm build
 pnpm validate
 ```
+
+The root pnpm scripts are the source of truth for repository tasks. Equivalent
+Make targets provide short, stable entry points such as `make dev`,
+`make validate`, and `make update-all`; running plain `make` performs no work.
+
+Dependency maintenance commands:
+
+- `pnpm depcheck` reports outdated dependencies across the workspace.
+- `pnpm ud` updates within declared ranges and deduplicates the lockfile.
+- `pnpm update-all` updates all workspace dependencies to their latest stable
+  versions, updates referenced GitHub Actions, and deduplicates the lockfile.
+- `pnpm iud` installs, updates within declared ranges, deduplicates, and updates
+  the pinned pnpm version.
+
+`pnpm lint` also validates repository boundaries, including catalog and
+workspace dependency declarations, renderer privilege isolation, and the
+runtime neutrality of public plugin and ACP contracts.
+
+`pnpm test` runs fast Node.js unit tests and headless Chromium browser tests.
+Browser tests use the `*.browser.test.ts` suffix and cover renderer plugin DOM
+behavior; they do not replace Electron main/preload integration testing.
+Before the first browser test run, install Chromium with
+`pnpm --filter @avesd/desktop exec playwright install chromium`.
 
 ## Repository layout
 
@@ -45,6 +68,14 @@ Plugin registrations are reversible effects: activating a new version adds its
 contributions first, then disposes the previous version in reverse registration
 order. Failed activation removes only the candidate's effects, leaving the
 previous version active.
+
+Plugins interact with the host through two explicit surfaces on their activation
+context. `contributions` publishes typed extension points such as workbench
+views, while `services` contains only the storage, command, or external-opening
+capabilities declared by the plugin and authorized by the host. The kernel binds
+service scopes to the plugin identifier before activation, so plugin code cannot
+select another plugin's service namespace. Concrete persistence and privileged
+desktop implementations remain outside the runtime-neutral public API.
 
 The renderer welcome screen is the first built-in UI plugin and participates in
 Vite hot module replacement. External plugin discovery, compilation, sandboxing,

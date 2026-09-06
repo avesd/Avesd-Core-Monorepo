@@ -2,7 +2,7 @@
 
 ## Repository profile
 
-- Repository purpose: A local-first Electron workspace for managing a job search, with optional cloud capabilities deferred until they are needed.
+- Repository purpose: A local-first, extensible desktop kiosk that grows with its user through replaceable plugins, with optional cloud capabilities deferred until they are needed.
 - Artifact language: English.
 - User communication language: Chinese by default, as required by `AGENTS.md`.
 - Applicable instructions: Root `AGENTS.md` plus every nearer subtree `AGENTS.md` governing touched paths.
@@ -52,5 +52,5 @@
 - Output location: The operating system temporary directory, never the repository workspace.
 - Filename convention: Use a collision-resistant temporary Markdown filename containing `handoff`.
 - Required sections: Objective, current state, confirmed decisions, unresolved questions, relevant artifacts, verification and failures, exact next steps, and suggested skills.
-- Sensitive information: Redact credentials, tokens, secret values, private keys, resume content, personal contact details, and other personally identifiable information.
+- Sensitive information: Redact credentials, tokens, secret values, private keys, user-created content, personal contact details, imported documents, locally persisted data, and other personally identifiable information.
 - Existing-artifact references: Reference existing plans, decisions, commits, diffs, reports, and documentation by path or URL instead of duplicating them.

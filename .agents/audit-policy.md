@@ -2,7 +2,7 @@
 
 ## Repository profile
 
-- Repository purpose: A local-first Electron workspace for managing a job search, with optional cloud capabilities deferred until they are needed.
+- Repository purpose: A local-first, extensible desktop kiosk that grows with its user through replaceable plugins, with optional cloud capabilities deferred until they are needed.
 - Artifact language: English.
 - User communication language: Chinese by default, as required by `AGENTS.md`.
 - Applicable instructions: Root `AGENTS.md` plus every nearer subtree `AGENTS.md` governing touched paths.
@@ -34,7 +34,7 @@
 
 ## Repository-specific review lenses
 
-- Protected invariants: Core workflows remain usable without cloud services; renderer code has no direct privileged access; preload and IPC surfaces are narrow and typed; domain rules remain independent of Electron, React, persistence, and cloud implementations; sensitive job-search data and credentials are not logged or committed.
+- Protected invariants: Core workflows remain usable without cloud services; capabilities expand through replaceable plugins; renderer code has no direct privileged access; preload and IPC surfaces are narrow and typed; domain rules remain independent of Electron, React, persistence, and cloud implementations; sensitive user data and credentials are not logged or committed.
 - Priority surfaces: Electron main/preload/renderer isolation, IPC validation, external navigation, local data durability, schema migration and recovery, file import boundaries, credential storage, dependency and packaging integrity, and future synchronization seams.
 - Excluded or accepted trade-offs: Cloud accounts, remote synchronization, multi-user tenancy, and deployment infrastructure are not current requirements unless the user explicitly adds them to scope.
 

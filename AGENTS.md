@@ -11,8 +11,10 @@ add subtree-specific constraints.
 
 ## Product boundary
 
-- Avesd is local-first. Its core job-search workflow must remain usable without
-  an account, network connection, or cloud service.
+- Avesd is the kiosk that grows with its user: a local-first, extensible desktop
+  workspace whose capabilities expand through replaceable plugins.
+- Its core local workflow must remain usable without an account, network
+  connection, or cloud service.
 - Cloud accounts and synchronization are optional future capabilities, not
   current dependencies of the desktop application.
 
@@ -24,9 +26,9 @@ add subtree-specific constraints.
   IPC contracts.
 - Keep domain rules independent of Electron, React, persistence drivers, and
   future cloud implementations.
-- Treat resume content, contact details, application history, credentials, and
-  imported documents as sensitive user data. Do not place them in logs,
-  fixtures, snapshots, or committed environment files.
+- Treat user-created content, contact details, credentials, imported documents,
+  and locally persisted data as sensitive. Do not place them in logs, fixtures,
+  snapshots, or committed environment files.
 
 ## Repository mechanics
 
